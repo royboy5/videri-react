@@ -34,15 +34,27 @@
     font-size: 1.6rem;
   }
 
-  input {
-    width: 100%;
-    font-family: inherit;
-    height: 4rem;
-    padding: 0 1rem;
+  &__field {
+    position: relative;
+
+    input {
+      width: 100%;
+      font-family: inherit;
+      height: 4rem;
+      padding: 0 1rem;
+    }
+
+    .error {
+      border-color: $Error;
+    }
   }
 
-  .error {
-    border-color: red;
+  &__error {
+    position: absolute;
+    bottom: -1.5rem;
+    left: 1rem;
+    color: $Error;
+    font-size: 1rem;
   }
 
   &__button {

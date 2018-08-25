@@ -44,6 +44,7 @@ const renderField = ({
       type={type}
       className={touched && ((error && 'error') || (warning && 'warning'))}
     />
+    {touched && (error && <span className="login-form__error">{error}</span>)}
   </div>
 );
 
