@@ -11,6 +11,7 @@ import { createStore } from 'redux';
 import reducers from './reducers';
 
 import Login from './pages/Login';
+import Content from './pages/Content';
 
 const store = createStore(reducers);
 
@@ -19,6 +20,7 @@ const App = () => (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Login} />
+        <Route path="/content" component={Content} />
       </Switch>
     </BrowserRouter>
   </Provider>

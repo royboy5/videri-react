@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../containers/LoginForm';
 
-const Login = () => (
-  <div className="login">
-    <LoginForm />
-  </div>
-);
+class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.submit = this.submit.bind(this);
+  }
+
+  submit(values) {
+    const {
+      history: { push },
+    } = this.props;
+
+    console.log(values);
+    console.log(this.props);
+    push('/content');
+  }
+
+  render() {
+    return (
+      <div className="login">
+        <LoginForm onSubmit={this.submit} />
+      </div>
+    );
+  }
+}
+
+Login.propTypes = {
+  history: PropTypes.instanceOf(Object).isRequired,
+};
 
 export default Login;

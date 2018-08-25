@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
-import Logo from './Logo';
+import Logo from '../components/Logo';
 
 const warn = (values) => {
   const warnings = {};
@@ -16,11 +16,19 @@ const warn = (values) => {
 
 const validate = (values) => {
   const errors = {};
+  const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  const passwordPattern = /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]).{8,})$/g;
 
   if (!values.email) {
     errors.email = 'Required';
-  } else if (values.email.length > 15) {
-    errors.email = 'Must be 15 characters or less';
+  } else if (!emailPattern.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+
+  if (!values.password) {
+    errors.password = 'Required';
+  } else if (!passwordPattern.test(values.password)) {
+    errors.password = 'Invalid Password';
   }
 
   return errors;
@@ -39,25 +47,18 @@ const renderField = ({
   </div>
 );
 
-const submitHandler = (values, reset) => {
-  console.log(values);
-  reset();
-};
-
 const LoginForm = (props) => {
-  const {
-    handleSubmit, pristine, submitting, reset,
-  } = props;
+  const { handleSubmit, pristine, submitting } = props;
 
   return (
-    <form className="login-form" onSubmit={handleSubmit(value => submitHandler(value, reset))}>
+    <form className="login-form" onSubmit={handleSubmit}>
       <h2 className="login-form__title">
         <Logo />
         Orchestrator
       </h2>
       <h3 className="login-form__subtitle">Sign In</h3>
       <Field name="email" component={renderField} type="text" label="ID" />
-      <Field name="password" component={renderField} type="text" label="PASSWORD" />
+      <Field name="password" component={renderField} type="password" label="PASSWORD" />
       <div className="login-form__button">
         <button type="submit" disabled={submitting || pristine}>
           Sign In
@@ -71,7 +72,6 @@ LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  reset: PropTypes.func.isRequired,
 };
 
 export default reduxForm({
