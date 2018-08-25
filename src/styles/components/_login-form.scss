@@ -1,0 +1,65 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  background-color: $PrimaryLight;
+  width: 80%;
+  max-width: 60rem;
+  padding: 5rem 5rem;
+  box-shadow: 3px 5px 1rem $Black;
+
+  @media (min-width: 510px) {
+    padding: 5rem 10rem;
+  }
+
+  &__title,
+  &__subtitle,
+  &__field {
+    margin-bottom: 3rem;
+  }
+
+  .logo {
+    width: 100%;
+    max-width: 18rem;
+    margin-right: 1rem;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    font-weight: normal;
+  }
+
+  &__subtitle {
+    text-transform: uppercase;
+    font-size: 1.6rem;
+  }
+
+  input {
+    width: 100%;
+    font-family: inherit;
+    height: 4rem;
+    padding: 0 1rem;
+  }
+
+  .error {
+    border-color: red;
+  }
+
+  &__button {
+    text-align: right;
+
+    button {
+      background-color: $Green;
+      border: none;
+      padding: 1rem 4rem;
+      color: $PrimaryLight;
+      text-transform: uppercase;
+      font-family: inherit;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+  }
+}
