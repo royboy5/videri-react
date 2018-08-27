@@ -2,12 +2,16 @@ import React from 'react';
 import { Icon } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 import { Link } from 'react-router-dom';
+import { MdApps } from 'react-icons/md';
 
 import Logo from './Logo';
 
 const Header = () => (
   <header className="header">
     <div className="header__top">
+      <div className="header__icon-wrapper">
+        <MdApps size="4rem" className="header__icon" />
+      </div>
       <Logo />
       <div className="header__tab">
         <span className="fs-small">Organization</span>

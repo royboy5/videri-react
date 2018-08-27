@@ -15,6 +15,13 @@
     margin-top: 6px;
   }
 
+  &__sort {
+    .bp3-button:hover,
+    .bp3-button.bp3-active {
+      background: none !important;
+    }
+  }
+
   &__search {
     input {
       border-radius: 1rem;
