@@ -1,8 +1,11 @@
-export default function () {
-  return [
-    { title: 'Photo 1', pages: 101 },
-    { title: 'Photo 2', pages: 39 },
-    { title: 'Photo 3', pages: 85 },
-    { title: 'Photo 4', pages: 1 },
-  ];
+// import _ from 'lodash';
+import { FETCH_PHOTOS } from '../actions';
+
+export default function (state = {}, action) {
+  switch (action.type) {
+    case FETCH_PHOTOS:
+      return action.payload.data;
+    default:
+      return state;
+  }
 }

@@ -49,7 +49,7 @@ const renderField = ({
 );
 
 const LoginForm = (props) => {
-  const { handleSubmit, pristine, submitting } = props;
+  const { handleSubmit, submitting } = props;
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
@@ -61,7 +61,7 @@ const LoginForm = (props) => {
       <Field name="email" component={renderField} type="text" label="ID" />
       <Field name="password" component={renderField} type="password" label="PASSWORD" />
       <div className="login-form__button">
-        <button type="submit" disabled={submitting || pristine}>
+        <button type="submit" disabled={submitting}>
           Sign In
         </button>
       </div>
@@ -71,7 +71,6 @@ const LoginForm = (props) => {
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
 };
 

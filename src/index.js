@@ -6,21 +6,40 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import promise from 'redux-promise';
 
 import reducers from './reducers';
 
 import Login from './pages/Login';
+import Header from './components/Header';
 import Content from './pages/Content';
+import Photos from './containers/Photos';
 
-const store = createStore(reducers);
+import Test from './components/Test';
+
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+
+const DefaultLayout = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={matchProps => (
+      <React.Fragment>
+        <Header />
+        <Component {...matchProps} />
+      </React.Fragment>
+    )}
+  />
+);
 
 const App = () => (
-  <Provider store={store}>
+  <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Login} />
-        <Route path="/content" component={Content} />
+        <DefaultLayout path="/content/photos" component={Photos} />
+        <DefaultLayout path="/content/videos" component={Test} />
+        <DefaultLayout path="/content" component={Content} />
       </Switch>
     </BrowserRouter>
   </Provider>

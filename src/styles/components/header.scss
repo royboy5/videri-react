@@ -1,0 +1,35 @@
+.header {
+  color: $PrimaryLight;
+
+  &__top {
+    background-color: blue;
+    display: flex;
+    align-items: center;
+
+    .logo {
+      height: 2rem;
+      fill: $PrimaryLight;
+      margin: 2rem 2rem;
+    }
+  }
+
+  &__tab {
+    padding: 1.25rem 2rem;
+    background-color: darkblue;
+    line-height: 1.5;
+  }
+
+  &__account-info {
+    margin-left: auto;
+  }
+
+  &__navigation {
+    background-color: darkblue;
+    text-transform: uppercase;
+
+    ul {
+      display: flex;
+      list-style-type: none;
+    }
+  }
+}
