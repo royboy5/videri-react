@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 
 import { fetchPhotos } from '../actions';
 
+import PageHeader from '../components/PageHeader';
+
 class Content extends Component {
   constructor(props) {
     super(props);
 
     this.renderFolders = this.renderFolders.bind(this);
+    this.sortHandler = this.sortHandler.bind(this);
   }
 
   componentDidMount() {
@@ -17,13 +20,15 @@ class Content extends Component {
 
   init() {
     const { fetchPhotos: photos } = this.props;
-    // const search = ['extreme', 'sports', 'cars'];
+    const search = ['extreme', 'sports', 'cars'];
 
-    // search.forEach((query) => {
-    //   photos(query);
-    // });
+    search.forEach((query) => {
+      photos(query);
+    });
+  }
 
-    photos('sports');
+  sortHandler() {
+    console.log(this.props, 'clicked');
   }
 
   renderFolders() {
@@ -31,7 +36,17 @@ class Content extends Component {
 
     console.log(photos, 'render');
 
-    return 'hi';
+    return Object.keys(photos)
+      .sort()
+      .map((item) => {
+        console.log(item, 'item');
+        return (
+          <div key={item}>
+            <div>{item}</div>
+            <div>{photos[item].total}</div>
+          </div>
+        );
+      });
   }
 
   render() {
@@ -42,7 +57,12 @@ class Content extends Component {
       return <div>Loading...</div>;
     }
 
-    return <div>{this.renderFolders()}</div>;
+    return (
+      <div className="photos">
+        <PageHeader title="Photos" sortHandler={this.sortHandler} />
+        <div className="">{this.renderFolders()}</div>
+      </div>
+    );
   }
 }
 Content.propTypes = {

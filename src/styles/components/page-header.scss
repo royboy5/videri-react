@@ -1,0 +1,23 @@
+.page-header {
+  &__top,
+  &__bot {
+    display: flex;
+    align-items: center;
+    margin: 0 2rem;
+  }
+
+  &__link,
+  &__search {
+    margin-left: auto;
+  }
+
+  &__back-link {
+    margin-top: 6px;
+  }
+
+  &__search {
+    input {
+      border-radius: 1rem;
+    }
+  }
+}

@@ -10,13 +10,11 @@ class Login extends Component {
     this.submit = this.submit.bind(this);
   }
 
-  submit(values) {
+  submit() {
     const {
       history: { push },
     } = this.props;
 
-    console.log(values);
-    console.log(this.props);
     push('/content');
   }
 

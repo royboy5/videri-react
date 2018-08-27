@@ -1,8 +1,10 @@
-export default function () {
-  return [
-    { title: 'Video 1', pages: 101 },
-    { title: 'Video 2', pages: 39 },
-    { title: 'Video 3', pages: 85 },
-    { title: 'Video 4', pages: 1 },
-  ];
+import { FETCH_VIDEOS } from '../actions';
+
+export default function (state = {}, action) {
+  switch (action.type) {
+    case FETCH_VIDEOS:
+      return { ...state, [action.payload.query]: action.payload.data };
+    default:
+      return state;
+  }
 }

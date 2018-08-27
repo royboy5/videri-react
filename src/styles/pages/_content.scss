@@ -1,3 +1,12 @@
 .content {
-  background-color: black;
+  margin: 4rem;
+  display: flex;
+
+  a {
+    margin-right: 2rem;
+  }
+
+  figcaption {
+    text-align: center;
+  }
 }

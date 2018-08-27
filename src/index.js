@@ -14,9 +14,8 @@ import reducers from './reducers';
 import Login from './pages/Login';
 import Header from './components/Header';
 import Content from './pages/Content';
-import Photos from './containers/Photos';
-
-import Test from './components/Test';
+import Photos from './pages/Photos';
+import Videos from './pages/Videos';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -38,7 +37,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={Login} />
         <DefaultLayout path="/content/photos" component={Photos} />
-        <DefaultLayout path="/content/videos" component={Test} />
+        <DefaultLayout path="/content/videos" component={Videos} />
         <DefaultLayout path="/content" component={Content} />
       </Switch>
     </BrowserRouter>

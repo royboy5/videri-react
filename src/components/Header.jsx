@@ -16,7 +16,7 @@ const Header = () => (
         <span>151 Pro-Serv</span>
       </div>
       <div className="header__account-info">
-        <span>admin@videri.com</span>
+        <span className="header__user">admin@videri.com</span>
         <Icon icon={IconNames.USER} iconSize={Icon.SIZE_LARGE} />
       </div>
     </div>
@@ -24,7 +24,9 @@ const Header = () => (
       <ul>
         <li>Canvases</li>
         <li>
-          <Link to="/content">Content</Link>
+          <Link to="/content" className="active">
+            Content
+          </Link>
         </li>
         <li>Playlist</li>
       </ul>
