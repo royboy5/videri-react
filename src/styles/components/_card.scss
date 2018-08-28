@@ -1,0 +1,56 @@
+.card-list {
+  margin: 2rem 3rem;
+  display: flex;
+
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:not(:last-of-type) {
+      margin-right: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.card {
+  display: flex;
+  padding: 0;
+  width: 30rem;
+
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+
+  &__image {
+    position: relative;
+
+    height: 150px;
+    width: 150px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    svg {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      fill: $DarkBlue;
+    }
+  }
+
+  &__info {
+    padding: 2rem;
+    color: $Black;
+  }
+
+  &__title {
+    margin-bottom: 1rem;
+  }
+
+  &__created {
+    font-size: 1rem;
+    color: $PrimaryDark;
+    margin-bottom: 5px;
+  }
+}

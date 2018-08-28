@@ -12,13 +12,24 @@
   }
 
   &__back-link {
-    margin-top: 6px;
+    margin-top: 2px;
+    background-color: transparent !important;
+    box-shadow: none !important;
   }
 
   &__sort {
     .bp3-button:hover,
     .bp3-button.bp3-active {
       background: none !important;
+      color: $LightBlue !important;
+
+      .bp3-icon {
+        fill: $LightBlue;
+      }
+    }
+
+    .bp3-button.bp3-active {
+      font-weight: bold;
     }
   }
 

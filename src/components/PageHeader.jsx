@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { MdKeyboardArrowLeft } from 'react-icons/md';
+
+import { Button } from '@blueprintjs/core';
+import { IconNames } from '@blueprintjs/icons';
 
 import SortGroup from './SortGroup';
 import SearchBox from './SearchBox';
 
-const PageHeader = ({ title, sortHandler }) => (
+const PageHeader = ({ title, sortHandler, back }) => (
   <div className="page-header">
     <div className="page-header__top">
-      <Link to="/content" className="page-header__back-link">
-        <MdKeyboardArrowLeft size="3rem" />
-      </Link>
-      <h3 className="page-header__title">{`${title} Folders`}</h3>
+      <Button icon={IconNames.CHEVRON_LEFT} onClick={back} className="page-header__back-link" />
+      <h3 className="page-header__title">{`${title}`}</h3>
       <div className="page-header__link">New Folder</div>
     </div>
     <div className="page-header__bot">
@@ -25,6 +24,7 @@ const PageHeader = ({ title, sortHandler }) => (
 PageHeader.propTypes = {
   title: PropTypes.string.isRequired,
   sortHandler: PropTypes.func.isRequired,
+  back: PropTypes.func.isRequired,
 };
 
 export default PageHeader;

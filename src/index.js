@@ -16,6 +16,7 @@ import Header from './components/Header';
 import Content from './pages/Content';
 import Photos from './pages/Photos';
 import Videos from './pages/Videos';
+import ContentList from './components/ContentList';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -36,7 +37,9 @@ const App = () => (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Login} />
+        <DefaultLayout path="/content/photos/:id" component={ContentList} />
         <DefaultLayout path="/content/photos" component={Photos} />
+        <DefaultLayout path="/content/videos/:id" component={ContentList} />
         <DefaultLayout path="/content/videos" component={Videos} />
         <DefaultLayout path="/content" component={Content} />
       </Switch>

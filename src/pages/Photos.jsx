@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { fetchPhotos } from '../actions';
 
 import PageHeader from '../components/PageHeader';
+import Item from '../components/FolderItem';
+import { getDate } from '../utils/getInfo';
 
 class Content extends Component {
   constructor(props) {
@@ -34,23 +37,29 @@ class Content extends Component {
   renderFolders() {
     const { photos } = this.props;
 
-    console.log(photos, 'render');
-
     return Object.keys(photos)
       .sort()
       .map((item) => {
         console.log(item, 'item');
+
+        const date = getDate(photos[item].hits[0].previewURL);
+
+        const [, year, month, day] = date;
         return (
-          <div key={item}>
-            <div>{item}</div>
-            <div>{photos[item].total}</div>
-          </div>
+          <Link key={photos[item].hits[0].id} to={`/content/photos/${item}`}>
+            <Item
+              image={photos[item].hits[0].previewURL}
+              title={item}
+              assets={photos[item].total}
+              date={`/${year}/${month}/${day}`}
+            />
+          </Link>
         );
       });
   }
 
   render() {
-    const { photos } = this.props;
+    const { photos, history } = this.props;
     console.log(photos, 'photos');
 
     if (!photos) {
@@ -58,16 +67,17 @@ class Content extends Component {
     }
 
     return (
-      <div className="photos">
-        <PageHeader title="Photos" sortHandler={this.sortHandler} />
-        <div className="">{this.renderFolders()}</div>
-      </div>
+      <main className="photos">
+        <PageHeader title="Photos Folder" sortHandler={this.sortHandler} back={history.goBack} />
+        <div className="card-list">{this.renderFolders()}</div>
+      </main>
     );
   }
 }
 Content.propTypes = {
   fetchPhotos: PropTypes.func.isRequired,
   photos: PropTypes.instanceOf(Object).isRequired,
+  history: PropTypes.instanceOf(Object).isRequired,
 };
 
 function mapStateToProps(state) {
