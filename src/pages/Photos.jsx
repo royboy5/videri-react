@@ -40,18 +40,15 @@ class Content extends Component {
     return Object.keys(photos)
       .sort()
       .map((item) => {
-        console.log(item, 'item');
-
         const date = getDate(photos[item].hits[0].previewURL);
 
-        const [, year, month, day] = date;
         return (
           <Link key={photos[item].hits[0].id} to={`/content/photos/${item}`}>
             <Item
               image={photos[item].hits[0].previewURL}
               title={item}
               assets={photos[item].total}
-              date={`/${year}/${month}/${day}`}
+              date={date}
             />
           </Link>
         );
@@ -60,7 +57,6 @@ class Content extends Component {
 
   render() {
     const { photos, history } = this.props;
-    console.log(photos, 'photos');
 
     if (!photos) {
       return <div>Loading...</div>;

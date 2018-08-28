@@ -6,16 +6,18 @@ export const getDate = (url) => {
 
   const date = url.match(pattern)[0].split('/');
 
-  return date;
+  const [, year, month, day] = date;
+
+  return `/${year}/${month}/${day}`;
 };
 
 // expects a string
 // userImageURL: https://cdn.pixabay.com/user/2014/05/07/00-10-34-2_250x250.jpg
 // previewURL: https://cdn.pixabay.com/photo/2014/05/03/00/42/vw-camper-336606_150.jpg
 export const getFilename = (url) => {
-  const pattern = /([0-9a-zA-Z._-]+.(png|PNG|gif|GIF|jp[e]?g|JP[E]?G))/;
+  const pattern = /([0-9a-zA-Z._-]+.(png|PNG|gif|GIF|jp[e]?g|JP[E]?G|mp4|MP4))/;
 
-  const date = url.match(pattern)[0].split('/');
+  const filename = url.match(pattern)[0].split('/');
 
-  return date;
+  return filename;
 };

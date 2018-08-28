@@ -9,6 +9,8 @@ const ContentItem = ({
   let typeIcon = '';
   if (type === 'photo') {
     typeIcon = 'media';
+  } else {
+    typeIcon = 'mobile-video';
   }
 
   return (

@@ -40,19 +40,20 @@ class Videos extends Component {
     return Object.keys(videos)
       .sort()
       .map((item) => {
-        console.log(item, 'item');
+        let date;
+        let image;
 
-        const date = getDate(videos[item].hits[0].userImageURL);
+        if (!videos[item].hits[0].userImageURL) {
+          date = '';
+          image = 'https://via.placeholder.com/150x150?text=Empty';
+        } else {
+          image = videos[item].hits[0].userImageURL;
+          date = getDate(videos[item].hits[0].userImageURL);
+        }
 
-        const [, year, month, day] = date;
         return (
           <Link key={videos[item].hits[0].id} to={`/content/videos/${item}`}>
-            <Item
-              image={videos[item].hits[0].userImageURL}
-              title={item}
-              assets={videos[item].total}
-              date={`/${year}/${month}/${day}`}
-            />
+            <Item image={image} title={item} assets={videos[item].total} date={date} />
           </Link>
         );
       });
@@ -60,7 +61,6 @@ class Videos extends Component {
 
   render() {
     const { videos, history } = this.props;
-    console.log(videos, 'videos');
 
     if (!videos) {
       return <div>Loading...</div>;

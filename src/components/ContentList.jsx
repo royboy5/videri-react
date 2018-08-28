@@ -35,6 +35,7 @@ class ContentList extends Component {
     if (this.isPhotos) {
       getPhotos(this.id);
     } else {
+      console.log('got vids');
       getVideos(this.id);
     }
   }
@@ -57,20 +58,41 @@ class ContentList extends Component {
     // console.log(items[this.id].hits, 'items');
 
     return items[this.id].hits.sort().map((item) => {
-      console.log(item, 'item');
+      let id;
+      let image;
+      let date;
+      let filename;
+      let res;
 
-      const date = getDate(item.previewURL);
-      const filename = getFilename(item.previewURL);
+      if (this.isPhotos) {
+        const { id: itemId } = item;
+        id = itemId;
+        date = getDate(item.previewURL);
+        filename = getFilename(item.previewURL);
+        image = item.previewURL;
+        res = `${item.imageWidth} x ${item.imageHeight}`;
+      } else {
+        id = item.picture_id;
+        filename = getFilename(item.videos.medium.url);
+        res = `${item.videos.medium.width} x ${item.videos.medium.height}`;
 
-      const [, year, month, day] = date;
+        if (!item.userImageURL) {
+          date = '';
+          image = 'https://via.placeholder.com/150x150?text=Empty';
+        } else {
+          image = item.userImageURL;
+          date = getDate(item.userImageURL);
+        }
+      }
+
       return (
         <ContentItem
-          key={item.id}
-          image={item.previewURL}
+          key={id}
+          image={image}
           title={filename}
           type={item.type}
-          res={`${item.imageWidth} x ${item.imageHeight}`}
-          date={`/${year}/${month}/${day}`}
+          res={res}
+          date={date}
         />
       );
     });
