@@ -1,29 +1,34 @@
+import { getFilename } from './getInfo';
+
 export const SORT_TYPE = {
   NONE: 0,
-  NAME: 1,
-  NAME_REV: 2,
+  NAME_PHOTO: 1,
+  NAME_VIDEO: 2,
 };
 
-export const sortByWordCount = (a, b) => a.words - b.words;
-export const sortByWordCountRev = (a, b) => b.words - a.words;
-export const sortBySubmitted = (a, b) => {
-  //   console.log('sortBySubmitted', a.publish_at, b.publish_at)
-  if (a.publish_at > b.publish_at) {
-    return 1;
-  }
-  if (a.publish_at < b.publish_at) {
+export const sortByPhotoName = (a, b) => {
+  const nameA = getFilename(a.previewURL.toUpperCase());
+  const nameB = getFilename(b.previewURL.toUpperCase());
+
+  if (nameA < nameB) {
     return -1;
   }
+  if (nameA > nameB) {
+    return 1;
+  }
+
   return 0;
 };
+export const sortByVideoName = (a, b) => {
+  const nameA = getFilename(a.videos.medium.url.toUpperCase());
+  const nameB = getFilename(b.videos.medium.url.toUpperCase());
 
-export const sortBySubmittedRev = (a, b) => {
-  //   console.log('sortBySubmittedRev', a.publish_at, b.publish_at)
-  if (a.publish_at < b.publish_at) {
-    return 1;
-  }
-  if (a.publish_at > b.publish_at) {
+  if (nameA < nameB) {
     return -1;
   }
+  if (nameA > nameB) {
+    return 1;
+  }
+
   return 0;
 };

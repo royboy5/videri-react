@@ -1,14 +1,15 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
-import { fetchPhotos, fetchVideos, selectItem } from '../actions';
+import { fetchPhotos, fetchVideos } from '../actions';
 
 import PageHeader from './PageHeader';
 import ContentItem from './ContentItem';
 import Popup from './Popup';
 
 import { getDate, getFilename } from '../utils/getInfo';
+import { sortByPhotoName, sortByVideoName } from '../utils/sortBy';
 
 class ContentList extends Component {
   constructor(props) {
@@ -32,8 +33,6 @@ class ContentList extends Component {
 
     this.id = id;
 
-    console.log(this.props, 'props');
-    console.log(this.state, 'state');
     this.isPhotos = match.url.includes('/content/photos');
   }
 
@@ -56,8 +55,6 @@ class ContentList extends Component {
   }
 
   showPopup(item) {
-    console.log(item, 'item');
-
     this.setState({
       openPopup: true,
       item: { ...item },
@@ -74,14 +71,17 @@ class ContentList extends Component {
     const { photos, videos } = this.props;
 
     let items;
+    let sortBy;
 
     if (this.isPhotos) {
       items = photos;
+      sortBy = sortByPhotoName;
     } else {
       items = videos;
+      sortBy = sortByVideoName;
     }
 
-    return items[this.id].hits.sort().map((item) => {
+    return items[this.id].hits.sort(sortBy).map((item) => {
       let id;
       let image;
       let date;
@@ -158,11 +158,10 @@ function mapStateToProps(state) {
   return {
     photos: state.photos,
     videos: state.videos,
-    item: state.item,
   };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchPhotos, fetchVideos, selectItem },
+  { fetchPhotos, fetchVideos },
 )(ContentList);
