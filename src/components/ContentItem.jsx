@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Card, Elevation, Icon } from '@blueprintjs/core';
 
 const ContentItem = ({
-  image, title, type, res, date,
+  image, title, type, res, date, onClick,
 }) => {
   let typeIcon = '';
   if (type === 'photo') {
@@ -14,7 +14,7 @@ const ContentItem = ({
   }
 
   return (
-    <Card className="card" interactive elevation={Elevation.TWO}>
+    <Card onClick={onClick} className="card" interactive elevation={Elevation.TWO}>
       <figure className="card__image" style={{ backgroundImage: `url(${image})` }} />
       <div className="card__info">
         <h5 className="card__title">{title}</h5>
@@ -35,6 +35,7 @@ ContentItem.propTypes = {
   type: PropTypes.string.isRequired,
   res: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ContentItem;

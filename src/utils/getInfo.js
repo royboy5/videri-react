@@ -17,7 +17,7 @@ export const getDate = (url) => {
 export const getFilename = (url) => {
   const pattern = /([0-9a-zA-Z._-]+.(png|PNG|gif|GIF|jp[e]?g|JP[E]?G|mp4|MP4))/;
 
-  const filename = url.match(pattern)[0].split('/');
+  const filename = url.match(pattern)[0];
 
   return filename;
 };

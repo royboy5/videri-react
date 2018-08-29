@@ -1,0 +1,42 @@
+.popup {
+  color: $White;
+
+  &.bp3-dialog {
+    width: 50%;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    fill: $White !important;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  &__media {
+    img {
+      width: 100%;
+    }
+
+    .video-react-control-bar {
+      display: flex !important;
+      bottom: -5rem !important;
+      background-color: transparent !important;
+    }
+
+    .video-react .video-react-control:before {
+      font-size: 3rem;
+      line-height: 1;
+    }
+  }
+}

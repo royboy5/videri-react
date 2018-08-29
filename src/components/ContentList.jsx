@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { fetchPhotos, fetchVideos } from '../actions';
+import { fetchPhotos, fetchVideos, selectItem } from '../actions';
 
 import PageHeader from './PageHeader';
 import ContentItem from './ContentItem';
+import Popup from './Popup';
 
 import { getDate, getFilename } from '../utils/getInfo';
 
@@ -13,8 +14,18 @@ class ContentList extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      openPopup: false,
+      item: {
+        filename: '',
+        url: '',
+      },
+    };
+
     this.sortHandler = this.sortHandler.bind(this);
     this.renderItems = this.renderItems.bind(this);
+    this.showPopup = this.showPopup.bind(this);
+    this.closePopup = this.closePopup.bind(this);
 
     const { match } = this.props;
     const { id } = match.params;
@@ -22,6 +33,7 @@ class ContentList extends Component {
     this.id = id;
 
     console.log(this.props, 'props');
+    console.log(this.state, 'state');
     this.isPhotos = match.url.includes('/content/photos');
   }
 
@@ -35,13 +47,27 @@ class ContentList extends Component {
     if (this.isPhotos) {
       getPhotos(this.id);
     } else {
-      console.log('got vids');
       getVideos(this.id);
     }
   }
 
   sortHandler() {
     console.log(this.props, 'clicked');
+  }
+
+  showPopup(item) {
+    console.log(item, 'item');
+
+    this.setState({
+      openPopup: true,
+      item: { ...item },
+    });
+  }
+
+  closePopup() {
+    this.setState({
+      openPopup: false,
+    });
   }
 
   renderItems() {
@@ -55,14 +81,13 @@ class ContentList extends Component {
       items = videos;
     }
 
-    // console.log(items[this.id].hits, 'items');
-
     return items[this.id].hits.sort().map((item) => {
       let id;
       let image;
       let date;
       let filename;
       let res;
+      let url;
 
       if (this.isPhotos) {
         const { id: itemId } = item;
@@ -71,10 +96,12 @@ class ContentList extends Component {
         filename = getFilename(item.previewURL);
         image = item.previewURL;
         res = `${item.imageWidth} x ${item.imageHeight}`;
+        url = item.largeImageURL;
       } else {
         id = item.picture_id;
         filename = getFilename(item.videos.medium.url);
         res = `${item.videos.medium.width} x ${item.videos.medium.height}`;
+        url = `${item.videos.medium.url}`;
 
         if (!item.userImageURL) {
           date = '';
@@ -93,6 +120,7 @@ class ContentList extends Component {
           type={item.type}
           res={res}
           date={date}
+          onClick={() => this.showPopup({ filename, url, isPhoto: this.isPhotos })}
         />
       );
     });
@@ -101,14 +129,17 @@ class ContentList extends Component {
   render() {
     const { history, photos, videos } = this.props;
 
+    const { openPopup, item } = this.state;
+
     if ((this.isPhotos && _.isEmpty(photos)) || (!this.isPhotos && _.isEmpty(videos))) {
       return <div>Loading</div>;
     }
 
     return (
-      <div>
+      <div style={openPopup ? { filter: 'blur(4px)', WebkitFilter: 'blur(4px)' } : {}}>
         <PageHeader title={this.id} sortHandler={this.sortHandler} back={history.goBack} />
         <div className="content-list">{this.renderItems()}</div>
+        <Popup showPopup={openPopup} closePopup={this.closePopup} content={item} />
       </div>
     );
   }
@@ -127,10 +158,11 @@ function mapStateToProps(state) {
   return {
     photos: state.photos,
     videos: state.videos,
+    item: state.item,
   };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchPhotos, fetchVideos },
+  { fetchPhotos, fetchVideos, selectItem },
 )(ContentList);

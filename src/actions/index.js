@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const FETCH_PHOTOS = 'fetch_photos';
 export const FETCH_VIDEOS = 'fetch_videos';
+export const SELECT_ITEM = 'select_item';
 
 const ROOT_URL = 'https://pixabay.com/api/';
 const API_KEY = '?key=9915801-6d01ef1df0097cf53bbdd7663';
@@ -29,5 +30,12 @@ export async function fetchVideos(query) {
       data: req.data,
       query,
     },
+  };
+}
+
+export function selectItem(item) {
+  return {
+    type: SELECT_ITEM,
+    payload: item,
   };
 }
