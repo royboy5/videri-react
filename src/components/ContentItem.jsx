@@ -7,7 +7,7 @@ const ContentItem = ({
   image, title, type, res, date, onClick,
 }) => {
   let typeIcon = '';
-  if (type === 'photo') {
+  if (type === 'photo' || type === 'illustration' || type === 'vector') {
     typeIcon = 'media';
   } else {
     typeIcon = 'mobile-video';
